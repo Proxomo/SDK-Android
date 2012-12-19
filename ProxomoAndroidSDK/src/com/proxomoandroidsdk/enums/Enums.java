@@ -142,33 +142,70 @@ public class Enums {
 			return this.value;
 		}
 	}
-	public enum FriendStatus implements EnumAbstract{
-		None(0),InvitationSent(1),Approved(2),Ignored(3),IncomingInvitation(4),InvitationIgnored(5);
+
+	public enum FriendStatus implements EnumAbstract {
+		None(0), InvitationSent(1), Approved(2), Ignored(3), IncomingInvitation(
+				4), InvitationIgnored(5);
 		private int value;
-		private FriendStatus(int value){
-			this.value=value;
+
+		private FriendStatus(int value) {
+			this.value = value;
 		}
-		public int convert(){
+
+		public int convert() {
 			return this.value;
 		}
 	}
-	public enum SocialNetwork implements EnumAbstract{
-		Facebook(0),Twitter(1);
+
+	public enum SocialNetwork implements EnumAbstract {
+		Facebook(0), Twitter(1);
 		private int value;
-		private SocialNetwork(int value){
-			this.value=value;
+
+		private SocialNetwork(int value) {
+			this.value = value;
 		}
-		public int convert(){
+
+		public int convert() {
 			return this.value;
 		}
 	}
-	public enum FriendResponse implements EnumAbstract{
-		Ignore(0),Accept(1),Cancel(2);
+
+	public enum FriendResponse implements EnumAbstract {
+		Ignore(0), Accept(1), Cancel(2);
 		private int value;
-		private FriendResponse(int value){
-			this.value=value;
+
+		private FriendResponse(int value) {
+			this.value = value;
 		}
-		public int convert(){
+
+		public int convert() {
+			return this.value;
+		}
+	}
+
+	public enum NotificationType implements EnumAbstract {
+		EventInvite(0), EventRequest(1), SystemMessage(2), ApplicationMessage(3), FriendInvitation(
+				4), Other(5), Verification(6);
+		private int value;
+
+		private NotificationType(int value) {
+			this.value = value;
+		}
+
+		public int convert() {
+			return this.value;
+		}
+	}
+
+	public enum NotificationSendMethod implements EnumAbstract {
+		All(0), Email(1), SMS(2), UserDefined(4);
+		private int value;
+
+		private NotificationSendMethod(int value) {
+			this.value = value;
+		}
+
+		public int convert() {
 			return this.value;
 		}
 	}

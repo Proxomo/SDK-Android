@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.util.Log;
-
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -20,7 +18,6 @@ public class NetDateTimeAdapter extends TypeAdapter<Date> {
 		}
 		Date result = null;
 		String str = reader.nextString();
-
 		String timePart = str.substring(str.indexOf("(") + 1, str.indexOf(")"));
 		String[] split = null;
 		char sign;
@@ -36,9 +33,6 @@ public class NetDateTimeAdapter extends TypeAdapter<Date> {
 			split[1] = "0";
 			sign = '+';
 		}
-		System.out.println("split " + split[0] + " | " + split[1]);
-		System.out.println("sign " + sign);
-
 		str = split[0];
 		if (str != "") {
 			try {
@@ -56,7 +50,6 @@ public class NetDateTimeAdapter extends TypeAdapter<Date> {
 	public void write(JsonWriter writer, Date value) throws IOException {
 		// not implemented
 		Long l = value.getTime();
-		Log.i("debug wcf date format", l + "");
 	    writer.value("/Date("+l+"+0000)/");
 
 	}

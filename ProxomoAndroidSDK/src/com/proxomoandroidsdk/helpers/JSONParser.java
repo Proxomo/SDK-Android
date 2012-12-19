@@ -4,8 +4,13 @@ import java.util.Date;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.proxomoandroidsdk.enums.Enums.EventParticipantStatus;
 import com.proxomoandroidsdk.enums.Enums.EventPrivacy;
 import com.proxomoandroidsdk.enums.Enums.EventStatus;
+import com.proxomoandroidsdk.enums.Enums.FriendStatus;
+import com.proxomoandroidsdk.enums.Enums.NotificationSendMethod;
+import com.proxomoandroidsdk.enums.Enums.NotificationType;
+import com.proxomoandroidsdk.enums.Enums.VerificationStatus;
 
 public class JSONParser {
 	private static Gson g;
@@ -25,7 +30,11 @@ public class JSONParser {
 			gb.registerTypeAdapter(Date.class, new NetDateTimeAdapter());
 			gb.registerTypeAdapter(EventStatus.class, ea);
 			gb.registerTypeAdapter(EventPrivacy.class, ea);
-			
+			gb.registerTypeAdapter(FriendStatus.class, ea);
+			gb.registerTypeAdapter(EventParticipantStatus.class, ea);
+			gb.registerTypeAdapter(VerificationStatus.class, ea);
+			gb.registerTypeAdapter(NotificationType.class, ea);
+			gb.registerTypeAdapter(NotificationSendMethod.class, ea);
 			g = gb.create();
 		}
 		return g;
@@ -55,5 +64,11 @@ public class JSONParser {
 	public static void registerEnumToFactory(){
 		EnumFactory.getInstance().registerEnum(EventStatus.class);
 		EnumFactory.getInstance().registerEnum(EventPrivacy.class);
+		EnumFactory.getInstance().registerEnum(FriendStatus.class);
+		EnumFactory.getInstance().registerEnum(EventParticipantStatus.class);
+		EnumFactory.getInstance().registerEnum(VerificationStatus.class);
+		EnumFactory.getInstance().registerEnum(NotificationSendMethod.class);
+		EnumFactory.getInstance().registerEnum(NotificationType.class);
 	}
+	
 }

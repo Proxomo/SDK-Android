@@ -6,7 +6,7 @@ public class GeoCode {
 	private String CountryCode;
 	private String CountryName;
 	private String DTSOffset;
-	private double Latitue;
+	private double Latitude;
 	private double Longitude;
 	private String Precision;
 	private String RawOffset;
@@ -55,12 +55,12 @@ public class GeoCode {
 		DTSOffset = dTSOffset;
 	}
 
-	public double getLatitue() {
-		return Latitue;
+	public double getLatitude() {
+		return Latitude;
 	}
 
-	public void setLatitue(double lattitue) {
-		Latitue = lattitue;
+	public void setLatitude(double lattitue) {
+		Latitude = lattitue;
 	}
 
 	public double getLongitude() {

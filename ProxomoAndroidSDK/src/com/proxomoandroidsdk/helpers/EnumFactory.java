@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 public class EnumFactory {
 	private static HashMap<String, HashMap<Integer, EnumAbstract>> superMap;

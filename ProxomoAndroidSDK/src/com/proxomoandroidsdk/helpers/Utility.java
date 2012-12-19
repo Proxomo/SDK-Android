@@ -16,7 +16,7 @@ public class Utility {
 		if (address != null && address != "")
 			sb.append(String.format("&address=%1$s", address));
 		if (lat != null && lat != "")
-			sb.append(String.format("&latitude=%1Ss", lat));
+			sb.append(String.format("&latitude=%1$s", lat));
 		if (lng != null && lng != "")
 			sb.append(String.format("&longtitude=%1$s", lng));
 		if (q != null && q != "")
@@ -26,7 +26,7 @@ public class Utility {
 		if (radius > 0)
 			sb.append(String.format("&radius=%1$s", radius));
 		if (scope != null)
-			sb.append(String.format("&scope=%1$s", scope));
+			sb.append(String.format("&scope=%1$s", scope.convert()));
 		if (maxresults > 0)
 			sb.append(String.format("&maxresults=%1$s", maxresults));
 		if (personId != null && personId != "")

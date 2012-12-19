@@ -2,13 +2,11 @@ package com.proxomoandroidsdk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -63,17 +61,12 @@ public class ProxomoWebRequest {
 				get.addHeader("Content-Type", contentType);
 				get.addHeader("Content-Length", content.length() + "");
 				res = client.execute(get);
-
 			} else if (method == "POST") {
 				HttpPost post = new HttpPost(url);
 				post.addHeader("Authorization", token);
 				post.addHeader("Content-Type", contentType);
-				if (content.length() > 0) {
-					StringEntity entity = new StringEntity(content, HTTP.UTF_8);
-					post.setEntity(entity);
-					// } else {
-					// post.addHeader("Content-Length", 0 + "");
-				}
+				StringEntity entity = new StringEntity(content, HTTP.UTF_8);
+				post.setEntity(entity);
 				res = client.execute(post);
 			} else if (method == "DELETE") {
 				HttpDelete del = new HttpDelete(url);
@@ -84,12 +77,8 @@ public class ProxomoWebRequest {
 				HttpPut put = new HttpPut(url);
 				put.addHeader("Authorization", token);
 				put.addHeader("Content-Type", contentType);
-				if (content.length() > 0) {
-					StringEntity entity = new StringEntity(content, HTTP.UTF_8);
-					put.setEntity(entity);
-					// } else {
-					// put.addHeader("Content-Length", 0 + "");
-				}
+				StringEntity entity = new StringEntity(content, HTTP.UTF_8);
+				put.setEntity(entity);
 				res = client.execute(put);
 			}
 			StatusLine sl = res.getStatusLine();
