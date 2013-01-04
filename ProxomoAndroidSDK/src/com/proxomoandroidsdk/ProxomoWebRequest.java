@@ -18,24 +18,21 @@ import org.apache.http.protocol.HTTP;
 import android.util.Log;
 
 import com.proxomoandroidsdk.definitions.ContinuationToken;
-import com.proxomoandroidsdk.enums.Enums.CommunicationType;
 
 public class ProxomoWebRequest {
 	public String token = "";
-	private CommunicationType _format = CommunicationType.JSON;
 
 	public void test() {
 		Log.d("ok", "it works");
 		System.out.println("it works");
 	}
 
-	public ProxomoWebRequest(String authToken, CommunicationType format) {
+	public ProxomoWebRequest(String authToken) {
 		token = authToken;
-		_format = format;
 	}
 
-	public ProxomoWebRequest(CommunicationType _format) {
-		this._format = _format;
+	public ProxomoWebRequest() {
+		// TODO Auto-generated constructor stub
 	}
 
 	String getData(String url, String method, String contentType) {

@@ -136,7 +136,7 @@ public class ProxomoApi {
 				.format("%1$s/security/accesstoken/get?applicationid=%2$s&proxomoAPIkey=%3$s",
 						baseURL, URLEncoder.encode(_appID),
 						URLEncoder.encode(_proxomoAPIkey));
-		ProxomoWebRequest p = new ProxomoWebRequest(_format);
+		ProxomoWebRequest p = new ProxomoWebRequest();
 		String rawTokenData = p.getData(url, "GET", "");
 		rawTokenData = JSONParser.fixExpireDate(rawTokenData);
 		_authToken = JSONParser.getInstance().fromJson(rawTokenData,
@@ -150,7 +150,7 @@ public class ProxomoApi {
 				"%1$s/customdata/search/table/%2$s?q=%3$s&maxresults=%4$s",
 				baseURL, tableName, query, maxResults);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String rawJsonData = p.getData(url, "GET", contentType, "", ctokens);
 		return JSONParser.getInstance().fromJson(rawJsonData, t);
 	}
@@ -158,7 +158,7 @@ public class ProxomoApi {
 	public String CustomDataAdd(Object o) {
 		String url = String.format("%1$s/customdata", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(o);
 		String returnJson = p.getData(url, "POST", contentType, json);
 		return JSONParser.getInstance().fromJson(returnJson, String.class);
@@ -168,14 +168,14 @@ public class ProxomoApi {
 		String url = String.format("%1$s/customdata/table/%2$s/%3$s", baseURL,
 				tblName, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
 	public String CustomDataUpdate(Object o) {
 		String url = String.format("%1$s/customdata", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(o);
 		return p.getData(url, "PUT", contentType, json);
 	}
@@ -184,7 +184,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/customdata/table/%2$s/%3$s", baseURL,
 				tblName, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String rawJson = p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(rawJson, t);
 	}
@@ -193,7 +193,7 @@ public class ProxomoApi {
 	public String appDataAdd(AppData app) {
 		String url = String.format("%1$s/appdata", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(app);
 		String rawJson = p.getData(url, "POST", contentType, json);
 		return JSONParser.getInstance().fromJson(rawJson, String.class);
@@ -202,14 +202,14 @@ public class ProxomoApi {
 	public void appDataDelete(String id) {
 		String url = String.format("%1$s/appdata/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
 	public AppData appDataGet(String id) {
 		String url = String.format("%1$s/appdata/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String rawjson = p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(rawjson, AppData.class);
 	}
@@ -217,7 +217,7 @@ public class ProxomoApi {
 	public void appDataUpdate(AppData app) {
 		String url = String.format("%1$s/appdata", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(app);
 		p.getData(url, "PUT", contentType, json);
 	}
@@ -225,7 +225,7 @@ public class ProxomoApi {
 	public ArrayList<AppData> appDataGetAll() {
 		String url = String.format("%1$s/appdata", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String rawJson = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<AppData>>() {
 		}.getType();
@@ -236,7 +236,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/appdata/search/objecttype/%2$s",
 				baseURL, objectType);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<AppData>>() {
 		}.getType();
@@ -248,7 +248,7 @@ public class ProxomoApi {
 	public String eventAdd(Event e) {
 		String url = String.format("%1$s/event", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(e);
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "POST", contentType, json), String.class);
@@ -257,7 +257,7 @@ public class ProxomoApi {
 	public Event eventGet(String id) {
 		String url = String.format("%1$s/event/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(json, Event.class);
 	}
@@ -265,7 +265,7 @@ public class ProxomoApi {
 	public void eventUpdate(Event e) {
 		String url = String.format("%1$s/event", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(e);
 		p.getData(url, "PUT", contentType, json);
 	}
@@ -287,7 +287,7 @@ public class ProxomoApi {
 							Utility.convertToUnixTimeStamp(endTime), eventType);
 		}
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<Event>>() {
 		}.getType();
@@ -309,7 +309,7 @@ public class ProxomoApi {
 							Utility.convertToUnixTimeStamp(start),
 							Utility.convertToUnixTimeStamp(end), eventType);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<Event>>() {
 		}.getType();
@@ -320,7 +320,7 @@ public class ProxomoApi {
 	public String eventCommentAdd(String eventId, EventComment ec) {
 		String url = String.format("%1$s/event/%2$s/comment", baseURL, eventId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(ec);
 		String returnedJson = p.getData(url, "POST", contentType, json);
 		return JSONParser.getInstance().fromJson(returnedJson, String.class);
@@ -330,7 +330,7 @@ public class ProxomoApi {
 		String url = String
 				.format("%1$s/event/%2$s/comments", baseURL, eventID);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnedJson = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<EventComment>>() {
 		}.getType();
@@ -340,7 +340,7 @@ public class ProxomoApi {
 	public void eventCommentUpdate(String eventid, EventComment ec) {
 		String url = String.format("%1$s/event/%2$s/comment", baseURL, eventid);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(ec);
 		p.getData(url, "PUT", contentType, json);
 	}
@@ -349,7 +349,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/comment/%3$s", baseURL,
 				eventId, commentId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
@@ -359,7 +359,7 @@ public class ProxomoApi {
 				"%1$s/event/%2$s/participant/invite/personid/%3$s", baseURL,
 				eventId, personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -375,7 +375,7 @@ public class ProxomoApi {
 				"%1$s/event/%2$s/participants/invite/personids/%3$s", baseURL,
 				eventId, personIdStr);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -383,7 +383,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/participants", baseURL,
 				eventId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<EventParticipant>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -394,7 +394,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/participant/%3$s", baseURL,
 				eventId, participantId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
@@ -403,7 +403,7 @@ public class ProxomoApi {
 				"%1$s/event/%2$s/requestinvite/personid/%3$s", baseURL,
 				eventId, personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -413,7 +413,7 @@ public class ProxomoApi {
 				"%1$s/event/%2$s/rsvp/personid/%3$s/participantstatus/%4$s",
 				baseURL, eventId, personId, participantStatus.convert());
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 
 	}
@@ -424,7 +424,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/appdata", baseURL, eventId);
 		String json = JSONParser.getInstance().toJson(ad);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "POST", contentType, json), String.class);
 	}
@@ -433,7 +433,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/appdata/%3$s", baseURL,
 				eventId, appDataId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), AppData.class);
 	}
@@ -441,7 +441,7 @@ public class ProxomoApi {
 	public ArrayList<AppData> eventAppDataGetAll(String eventId) {
 		String url = String.format("%1$s/event/%2$s/appdata", baseURL, eventId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<AppData>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -452,7 +452,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/appdata", baseURL, eventId);
 		String json = JSONParser.getInstance().toJson(ad);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType, json);
 	}
 
@@ -460,7 +460,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/event/%2$s/appdata/%3$s", baseURL,
 				eventId, appDataId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
@@ -470,7 +470,7 @@ public class ProxomoApi {
 				"%1$s/friend/invite/frienda/%2$s/friendb/%3$s", baseURL,
 				friendA, friendB);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -478,7 +478,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/friends/personid/%2$s", baseURL,
 				personID);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Friend>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -491,7 +491,7 @@ public class ProxomoApi {
 				.format("%1$s/friend/invite/frienda/%2$s/friendb/%3$s/socialnetwork/%4$s",
 						baseURL, frienda, friendb, socialNetwork.convert());
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -501,7 +501,7 @@ public class ProxomoApi {
 				.format("%1$s/friend/respond/frienda/%2$s/friendb/%3$s/friendresponse/%4$s",
 						baseURL, frienda, friendb, response.convert());
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -511,7 +511,7 @@ public class ProxomoApi {
 				"%1$s/friends/personid/%2$s/socialnetwork/%3$s", baseURL,
 				personID, socialNetwork.convert());
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<SocialNetworkFriend>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -523,7 +523,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/geo/lookup/address/%2$s", baseURL,
 				address);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), GeoCode.class);
 	}
@@ -533,7 +533,7 @@ public class ProxomoApi {
 				"%1$s/geo/lookup/latitude/%2$s/longitude/%3$s", baseURL,
 				latitue, longitude);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), Location.class);
 	}
@@ -542,7 +542,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/geo/lookup/ip/%2$s", baseURL,
 				ipAddress);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), GeoIP.class);
 	}
@@ -551,7 +551,7 @@ public class ProxomoApi {
 	public String locationAdd(Location l) {
 		String url = String.format("%1$s/location", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String json = JSONParser.getInstance().toJson(l);
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "POST", contentType, json), String.class);
@@ -560,7 +560,7 @@ public class ProxomoApi {
 	public Location locationGet(String id) {
 		String url = String.format("%1$s/location/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), Location.class);
 	}
@@ -568,21 +568,21 @@ public class ProxomoApi {
 	public void locationUpdate(Location l) {
 		String url = String.format("%1$s/location", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType, JSONParser.getInstance().toJson(l));
 	}
 
 	public void locationDelete(String id) {
 		String url = String.format("%1$s/location/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
 	public ArrayList<Category> locationCategoriesGet() {
 		String url = String.format("%1$s/location/categories", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Category>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -598,7 +598,7 @@ public class ProxomoApi {
 				+ Utility.formatQueryString(address, "", "", q, category,
 						radius, scope, maxresults, personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Location>>() {
 		}.getType();
 		String returnedJson = p.getData(url, "GET", contentType);
@@ -616,7 +616,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/locations/search/locationtype/%2$s",
 				baseURL, locationType);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Location>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -634,7 +634,7 @@ public class ProxomoApi {
 				+ Utility.formatQueryString("", "", "", q, category, radius,
 						scope, maxresults, personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Location>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -651,7 +651,7 @@ public class ProxomoApi {
 				+ Utility.formatQueryString("", "", "", q, category, radius,
 						scope, maxresults, personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Location>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -663,7 +663,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/location/%2$s/appdata", baseURL,
 				locationId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "POST", contentType, JSONParser.getInstance()
 						.toJson(ad)), String.class);
@@ -673,7 +673,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/location/%2$s/appdata/%3$s", baseURL,
 				locationid, appdataId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
@@ -681,7 +681,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/location/%2$s/appdata/%3$s", baseURL,
 				locationId, appDataId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnedJson=p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(
 				returnedJson, AppData.class);
@@ -691,7 +691,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/location/%2$s/appdata", baseURL,
 				locationID);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<AppData>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -702,7 +702,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/location/%2$s/appdata", baseURL,
 				locationId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType, JSONParser.getInstance().toJson(ad));
 	}
 
@@ -710,7 +710,7 @@ public class ProxomoApi {
 	public void notificationSend(Notification n) {
 		String url = String.format("%1$s/notification", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "POST", contentType, JSONParser.getInstance().toJson(n));
 	}
 
@@ -721,7 +721,7 @@ public class ProxomoApi {
 				.format("%1$s/security/person/create?username=%2$s&password=%3$s&role=%4$s",
 						baseURL, username, pass, role);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnendJson = p.getData(url, "POST", contentType);
 		return JSONParser.getInstance().fromJson(returnendJson,
 				PersonLogin.class);
@@ -731,14 +731,14 @@ public class ProxomoApi {
 		String url = String.format("%1$s/security/person/%2$s", baseURL,
 				personID);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
 	public ArrayList<PersonLogin> securityPersonGetAll() {
 		String url = String.format("%1$s/security/persons", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnJson = p.getData(url, "GET", contentType);
 		Type t = new TypeToken<ArrayList<PersonLogin>>() {
 		}.getType();
@@ -750,7 +750,7 @@ public class ProxomoApi {
 				.format("%1$s/security/person/authenticate?applicationid=%2$s&username=%3$s&password=%4$s",
 						baseURL, _appID, username, pass);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnedJson = p.getData(url, "GET", contentType);
 		UserToken ut = JSONParser.getInstance().fromJson(returnedJson,
 				UserToken.class);
@@ -762,7 +762,7 @@ public class ProxomoApi {
 				"%1$s/security/person/passwordchange/request/%2$s", baseURL,
 				username);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnedJson = p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(returnedJson, String.class);
 	}
@@ -773,7 +773,7 @@ public class ProxomoApi {
 				.format("%1$s/security/person/passwordchange?username=%2$s&password=%3$s&resettoken=%4$s",
 						baseURL, username, password, resetToken);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		String returnedJson = p.getData(url, "GET", contentType);
 		return JSONParser.getInstance().fromJson(returnedJson,
 				PersonLogin.class);
@@ -784,7 +784,7 @@ public class ProxomoApi {
 				"%1$s/security/person/update/role?personid=%2$s&role=%3$s",
 				baseURL, personID, role);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType);
 	}
 
@@ -792,7 +792,7 @@ public class ProxomoApi {
 	public Person personGet(String id) {
 		String url = String.format("%1$s/person/%2$s", baseURL, id);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), Person.class);
 	}
@@ -800,7 +800,7 @@ public class ProxomoApi {
 	public void personUpdate(Person person) {
 		String url = String.format("%1$s/person", baseURL);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType,
 				JSONParser.getInstance().toJson(person));
 	}
@@ -809,7 +809,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/person/%2$s/appdata", baseURL,
 				personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "POST", contentType, JSONParser.getInstance()
 						.toJson(ad)), String.class);
@@ -819,7 +819,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/person/%2$s/appdata/%3$s", baseURL,
 				personId, appId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		return JSONParser.getInstance().fromJson(
 				p.getData(url, "GET", contentType), AppData.class);
 	}
@@ -828,7 +828,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/person/%2$s/appdata", baseURL,
 				personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<AppData>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
@@ -839,7 +839,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/person/%2$s/appdata/%3$s", baseURL,
 				personId, appDataId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "DELETE", contentType);
 	}
 
@@ -847,7 +847,7 @@ public class ProxomoApi {
 		String url = String.format("%1$s/person/%2$s/appdata", baseURL,
 				personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		p.getData(url, "PUT", contentType, JSONParser.getInstance().toJson(ad));
 	}
 
@@ -859,7 +859,7 @@ public class ProxomoApi {
 						LocationSearchScope.ApplicationOnly, maxresults,
 						personId);
 		ProxomoWebRequest p = new ProxomoWebRequest(
-				_authToken.getAccessToken(), _format);
+				_authToken.getAccessToken());
 		Type t = new TypeToken<ArrayList<Location>>() {
 		}.getType();
 		return JSONParser.getInstance().fromJson(
