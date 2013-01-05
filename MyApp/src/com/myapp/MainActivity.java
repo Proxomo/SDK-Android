@@ -24,7 +24,6 @@ import com.proxomoandroidsdk.definitions.Notification;
 import com.proxomoandroidsdk.definitions.Person;
 import com.proxomoandroidsdk.definitions.PersonLogin;
 import com.proxomoandroidsdk.definitions.UserToken;
-import com.proxomoandroidsdk.enums.Enums.CommunicationType;
 import com.proxomoandroidsdk.enums.Enums.EventParticipantStatus;
 import com.proxomoandroidsdk.enums.Enums.EventPrivacy;
 import com.proxomoandroidsdk.enums.Enums.EventStatus;
@@ -40,27 +39,26 @@ public class MainActivity extends Activity {
 
 	String appId = "HerDPUfmteiNdi6Z";
 	String apiKey = "GMRqmIeLaqGkDFn6tw4wEQuqsje2GEFa6+DKbLsJdLk=";
-	ProxomoApi api = new ProxomoApi(appId, apiKey, null,
-			CommunicationType.JSON, "https://sandbox.proxomo.com");
+	ProxomoApi api = new ProxomoApi(appId, apiKey, null,"https://sandbox.proxomo.com");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		JSONParser.registerEnumToFactory();
-		 this.testCustomDataStorage();
-		 this.testAppData();
-		 this.testEvent();
-		 this.testEventComment();
-		 this.testEventAppData();
-		 this.testEventParticipant();
-
-		 this.testSecurity();
-
-		 this.testGeoLocation();
-//		 this.testLocation();
-		this.testPerson();
-		 this.testFriend();
+//		 this.testCustomDataStorage();
+//		 this.testAppData();
+//		 this.testEvent();
+//		 this.testEventComment();
+//		 this.testEventAppData();
+//		 this.testEventParticipant();
+//
+//		 this.testSecurity();
+//
+//		 this.testGeoLocation();
+		 this.testLocation();
+//		this.testPerson();
+//		 this.testFriend();
 //		 this.testNotification();
 	}
 
@@ -82,28 +80,28 @@ public class MainActivity extends Activity {
 		m.setData("data 5");
 		m.setDate(new Date());
 
-		String id = api.CustomDataAdd(m);
+		String id = api.customDataAdd(m);
 		Log.i("debug custom data add", id);
 
 		// test get single data
-		MyCustomData mcd = (MyCustomData) api.CustomDataGet("MyCustomTable",
+		MyCustomData mcd = (MyCustomData) api.customDataGet("MyCustomTable",
 				id, t1);
 		Log.i("debug customdataget", m.getData());
 
 		// test update single data
 		mcd.setData("this is new data");
-		api.CustomDataUpdate(mcd);
+		api.customDataUpdate(mcd);
 
 		// test get all data
 		@SuppressWarnings("unchecked")
 		ArrayList<MyCustomData> al = (ArrayList<MyCustomData>) api
-				.CustomDataSearch("MyCustomTable", "", 20, null, t);
+				.customDataSearch("MyCustomTable", "", 20, null, t);
 		Log.i("debug get all data", al.get(0).getData());
 
 		// test delete data
-		api.CustomDataDelete("MyCustomTable", id);
+		api.customDataDelete("MyCustomTable", id);
 		try {
-			mcd = (MyCustomData) api.CustomDataGet("MyCustomTable", id, t1);
+			mcd = (MyCustomData) api.customDataGet("MyCustomTable", id, t1);
 			Log.i("debug customdataget", mcd.getData());
 		} catch (Exception e) {
 			Log.i("debug custom data delete", "success");
@@ -311,8 +309,8 @@ public class MainActivity extends Activity {
 		// Daniel
 		// why
 		// null
-		Location l = api.reverseGeoCode(gc.getLatitude() + "",
-				gc.getLongitude() + "");
+		Location l = api.reverseGeoCode(gc.getLatitude(),
+				gc.getLongitude());
 		Log.i("debug reverse geocode", l.getAddress1());
 
 	}
@@ -332,7 +330,7 @@ public class MainActivity extends Activity {
 		l.setCountryCode("test code");
 		l.setCountryName("test country name");
 		l.setLatitude(12);
-		l.setLongtitude(12);
+		l.setLongitude(12);
 
 		String id = api.locationAdd(l);
 		Log.i("debug location add", id);
@@ -341,10 +339,6 @@ public class MainActivity extends Activity {
 
 		l = api.locationGet(locationTestID);
 		Log.i("debug location get", l.getLocationType());
-
-		// this is not working, need find out why
-		ArrayList<Category> al = api.locationCategoriesGet();
-		Log.i("debug location category get", al.size() + "");
 
 		ArrayList<Location> al1 = api.locationSearchByAddress("address 1",
 				"address='address 1'", "test category", 10,
@@ -355,31 +349,32 @@ public class MainActivity extends Activity {
 		ArrayList<Location> al2 = api.locationSearchByLocationType("test type");
 		Log.i("debug location search by type", al2.size() + "");
 
-		AppData ad = new AppData();
-		ad.setKey("test location ad key");
-		ad.setValue("test location ad value");
-		ad.setObjectType("test location ad obj type");
+//		AppData ad = new AppData();
+//		ad.setKey("test location ad key 123");
+//		ad.setValue("test location ad value");
+//		ad.setObjectType("test location ad obj type");
 		//
-		id = api.locationAppDataAdd(locationTestID, ad);
-		Log.i("debug location ad add", id);
-		ad = api.locationAppDataGet(locationTestID, id);
-		Log.i("debug location ad get", ad.getValue());
+//		id = api.locationAppDataAdd(locationTestID, ad);
+//		Log.i("debug location ad add", id);
+//		ad = api.locationAppDataGet(locationTestID, id);
+//		Log.i("debug location ad get", ad.getValue());
 
-		ad.setValue("new value");
-		api.locationAppDataUpdate(locationTestID, ad);
-		ad = api.locationAppDataGet(locationTestID, ad.getId());
-		Log.i("debug location ad get", ad.getValue());
+//		ad.setValue("new value");
+//		api.locationAppDataUpdate(locationTestID, ad);
+//		ad = api.locationAppDataGet(locationTestID, ad.getId());
+//		Log.i("debug location ad get", ad.getValue());
 
-		api.locationAppDataDelete(locationTestID, id);
-		try {
-			api.locationAppDataGet(locationTestID, id).getValue();
-		} catch (Exception e) {
-			Log.i("debug location appdata delete", "success");
-		}
+//		api.locationAppDataDelete(locationTestID, id);
+//		try {
+//			api.locationAppDataGet(locationTestID, id).getValue();
+//		} catch (Exception e) {
+//			Log.i("debug location appdata delete", "success");
+//		}
 		ArrayList<AppData> al11 = api.locationAppDataGetAll(locationTestID);
 		Log.i("debug location appdata getall", al11.size() + "");
-
-		ArrayList<Location> all = api.locationSearchByGPS("12", "12", "",
+		// I didnt add any location obj with the following lat long but still can get 
+		// location object
+		ArrayList<Location> all = api.locationSearchByGPS(32.761, -96.887, "",
 				"test category", 0, LocationSearchScope.ApplicationOnly, 10,
 				personId);
 		Log.i("debug location seach by gps", all.size() + "");

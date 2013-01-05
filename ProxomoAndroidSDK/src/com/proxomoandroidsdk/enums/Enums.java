@@ -3,9 +3,6 @@ package com.proxomoandroidsdk.enums;
 import com.proxomoandroidsdk.helpers.EnumAbstract;
 
 public class Enums {
-	public enum CommunicationType {
-		XML, JSON
-	}
 
 	public enum EventPrivacy implements EnumAbstract {
 		Secret(0), Closed(1), Open(2);

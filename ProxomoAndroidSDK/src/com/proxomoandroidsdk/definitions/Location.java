@@ -11,7 +11,7 @@ public class Location {
 	private double Distance;
 	private Category Category;
 	private double Latitude;
-	private double Longtitude;
+	private double Longitude;
 	private String Address1;
 	private String Address2;
 	private String City;
@@ -73,12 +73,12 @@ public class Location {
 		Latitude = latitude;
 	}
 
-	public double getLongtitude() {
-		return Longtitude;
+	public double getLongitude() {
+		return Longitude;
 	}
 
-	public void setLongtitude(double longtitude) {
-		Longtitude = longtitude;
+	public void setLongitude(double longtitude) {
+		Longitude = longtitude;
 	}
 
 	public String getAddress1() {
